@@ -1,0 +1,52 @@
+<div class="container">
+  <h3>Formularios reactivos, formularios anidados</h3>
+  <form [formGroup]="formularioDatosAlumno">
+    <div class="form-group">
+      <label for="nombre">Nombre Alumno</label>
+      <input type="text" formControlName="nombre" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="curso">Curso</label>
+      <select formControlName="curso" class="custom-select">
+        <option *ngFor="let cur of cursos" [value]="cur">{{cur}}</option>
+      </select>
+    </div>
+    <!-- Para mostrar un objeto que agrupe otro formgroup se hace con la etiqueta formGroupName
+    y se pone el nombre que los agrupa -->
+    <div formGroupName="datosPais">
+      <div class="form-group">
+        <label for="pais">Pais</label>
+        <input type="text" formControlName="pais" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="ciudad">Ciudad</label>
+        <input type="text" formControlName="ciudad" class="form-control">
+      </div>
+    </div>
+    <div formGroupName="materias">
+      <div class="form-group">
+        <label for="nombreMateria">Materia</label>
+        <input type="text" formControlName="nombreMateria" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="notaUno">nota uno</label>
+        <input type="text" formControlName="notaUno" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="notaDos">nota dos</label>
+        <input type="text" formControlName="notaDos" class="form-control">
+      </div>
+    </div>
+    <button class="btn btn-primary"
+      [disabled]="(materias.controls.nombreMateria.value == '' || materias.controls.nombreMateria.value == undefined)
+                 ||(formularioDatosAlumno.controls.materias.controls.notaUno.value == '' || formularioDatosAlumno.controls.materias.controls.notaUno.value == undefined)
+                 ||(formularioDatosAlumno.get('datosPais').get('pais').value == undefined || formularioDatosAlumno.get('datosPais').get('pais').value == '')"
+                 (click)="enviar()">
+      Enviar
+    </button>
+    <button class="btn btn-danger" (click)="limpiar()">Limpiar</button>
+  </form>
+  <div class="alert alert-success" style="margin-top:10px;">
+    {{resultado}}
+  </div>
+</div>

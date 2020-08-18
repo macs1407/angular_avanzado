@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>Formularios reactivos - Avanzado</h2>
+  <p>Se agregan validadores, Los resultados se ven en la consola</p>
+  <form [formGroup]="formularioBasicoTres" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Nombre</label>
+      <input type="text" formControlName="nombre" class="form-control" placeholder="Ingrese nombre">
+      {{nombre.valid}}
+      <div class="alert alert-danger" *ngIf="nombre.dirty && nombre.touched">
+        <div *ngIf="nombre.errors?.required">
+          Campo requerido
+        </div>
+        <div *ngIf="nombre.errors?.minlength">
+          Por lo menos 5 caracteres
+        </div>
+      </div>
+    
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Apellidos</label>
+      <input type="text" formControlName="apellidos" class="form-control" placeholder="Ingrese apellidos">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Hoobie</label>
+      <input type="text" formControlName="hoobie" class="form-control" placeholder="Ingrese hoobies">
+    </div>
+    <div class="card">
+      <div class="card-title">Otros datos</div>
+      <div class="card-body" formGroupName="otrosDatos">
+        <div class="form-group">
+          <label for="celular">Celular</label>
+          <input type="number" formControlName="celular" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="telefono">Telefono</label>
+          <input type="number" formControlName="telefono" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="direccion">Direccion</label>
+          <input type="text" formControlName="direccion" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="ciudad">Ciudad</label>
+          <input type="text" formControlName="ciudad" class="form-control">
+        </div>
+        <hr>
+        {{otrosDatos.value.celular}}
+        <br>
+        {{telefono.value}}
+      </div>
+    </div>
+    <button type="submit" style="margin:5px;" class="btn btn-primary" [disabled]="formularioBasicoTres.invalid">Enviar</button>
+  </form>
+</div>

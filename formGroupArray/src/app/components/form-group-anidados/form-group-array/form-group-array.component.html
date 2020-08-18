@@ -1,0 +1,53 @@
+<div class="container">
+  <h2>Formularios reactivos / formGroup / Array</h2>
+  <form [formGroup]="userProfileForm" #form="ngForm">
+    <div class="form-group">
+      <label for="firstName">Primer Nombre</label>
+      <input type="text" id="firstName" name="firstName" formControlName="firstName" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="firstName">Segundo Nombre</label>
+      <input type="text" id="lastName" name="lastName" formControlName="lastName" class="form-control">
+      {{userProfileForm.get('lastName').value}}
+    </div>
+    <hr>
+    <!-- DIRECCIONES -->
+    <div class="form-group" formArrayName="address">
+      <button (click)="newAddress()" class="btn btn-primary">Agregar direcciones</button>
+      <div *ngFor="let addres of address.controls; let i = index">
+        {{addres.value['address1']}}
+        <br>
+        {{userProfileForm.value['address'][i] | json}}
+        <div [formGroupName]="i">
+          <label for="address1">Telefono 1</label>
+          <input type="number" formControlName="address1" class="form-control">
+          <label for="address2">Telefono 2</label>
+          <input type="number" formControlName="address2" class="form-control">
+          <label for="state">Estado</label>
+          <input type="text" class="form-control" formControlName="state" [disabled]="userProfileForm.value['address'][i]['address1'] == 222">
+          <button (click)="eliminarCompuesto(i)" style="margin: 5px;" class="btn btn-danger"
+          [disabled]="userProfileForm.value['address'][i]['address1'] == 222">Eliminar</button>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <!-- TELEFONOS -->
+    <div class="form-group" formArrayName="mobiles">
+        <!-- CON LA PROPIEDAD STATUS DEL ARRAY SABEMOS SI ES VALIDO -->
+        <button (click)="newMobile()" [disabled]="mobiles.status == 'INVALID'" class="btn btn-primary">Agregar telefono</button>
+        <div *ngFor="let mobile of mobiles.controls; let i = index">
+            {{mobile.value}}
+            {{mobile.status}}
+            <label for="i">Telefono {{i+1}}</label>
+            <input type="text" class="form-control" [formControlName]="i">
+            <button style="margin: 5px;" class="btn btn-danger" (click)="eliminarTelefono(i)">Eliminar</button>
+        </div>
+    </div>
+    <hr>
+    <button (click)="enviar()" class="btn btn-primary">Enviar</button>
+    <hr>
+    <div>
+      {{userProfileForm.value | json}}
+    </div>  
+  </form>
+</div>

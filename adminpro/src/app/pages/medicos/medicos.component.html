@@ -1,0 +1,52 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" (keyup)="buscarMedico(input.value)" #input class="form-control" placeholder="buscar medico">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <button type="button" [routerLink]="['/medico','nuevo']" class="btn btn-primary">+ Agregar</button>
+                </div>
+                <h3 class="card-title">Medicos registrados {{totalRegistros}}</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Medico</th>
+                            <th>Hospital</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let medico of medicos">
+                            <td class="w70"><img [src]="medico.img | imagen:'medico'" class="w50 img-circle pointer" (click)="invocarModal(hospital)"></td>
+                            <td>
+                                {{medico.nombre}}
+                            </td>
+                            <td>
+                                {{medico.hospital.nombre}}
+                            </td>
+                            <td><button [routerLink]="['/medico',medico._id]" [disabled]="!medico.nombre" class="btn btn-primary">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            &nbsp;
+                            <button (click)="borrarMedico(medico)" class="btn btn-secondary">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>            
+            </div>
+        </div>
+    </div>
+</div>
+

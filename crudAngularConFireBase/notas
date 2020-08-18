@@ -1,0 +1,5 @@
+Si no funciona el proyecto correr:
+npm uninstall angularfire2
+npm install angularfire2@5.0.0-rc.3 --save
+npm uninstall firebase
+npm install firebase@4.8.0 --save

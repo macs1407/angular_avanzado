@@ -1,0 +1,38 @@
+<div class="container"> 
+  <h2>Formularios reactivos - Basicos</h2>
+  <!-- En la vista agrupamos todos los controles mediante la etiqueta form y definimos la
+    directiva [formGroup] asignando la variable de tipo FormGroup definida en la clase
+  -->
+  <form [formGroup]="formularioContacto">
+    <!-- Cada uno de los controles requiere definir la propidad formControlName con los
+      nombres asignados en la clase cuando creamos cada formControl
+    -->
+    <div class="form-group">
+      <label for="nombre">nombre</label>
+      <input type="text" formControlName="nombre" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="apellidos">Apellidos</label>
+      <input type="text" formControlName="apellidos" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="Email">Email</label>
+      <input type="text" formControlName="email" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="mensaje">Mensaje</label>
+      <input type="text" formControlName="mensaje" class="form-control">
+    </div>
+    {{formularioContacto.get('email').value  | json}}
+    <button class="btn btn-primary" (click)="enviar()">Enviar</button>
+    <button [disabled]="(formularioContacto.controls['nombre'].value == '' || formularioContacto.controls['nombre'].value == undefined) ||
+    (formularioContacto.get('email').value == '' || formularioContacto.get('email').value == undefined) || 
+    (formularioContacto.value.mensaje == '' || formularioContacto.value.mensaje == undefined)" class="btn btn-primary" (click)="resetar()">
+      Limpiar
+    </button>
+    <br>
+  </form>
+  <div *ngIf="datos != '' && datos != undefined" class="alert alert-success" style="margin-top: 20px;">
+    {{datos}}
+  </div>
+</div>

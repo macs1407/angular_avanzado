@@ -1,0 +1,17 @@
+<div class="container">
+  <h2>Formularios reactivos - controles</h2>
+  <h5 class="card-title">Control</h5>
+  <form [formGroup]="formulario">
+    <input type="text" formControlName="emailControl" class="form-control" />
+    <div *ngIf="formulario.controls['emailControl'].invalid &&
+            (formulario.controls['emailControl'].dirty || formulario.controls['emailControl'].touched)">
+      <div *ngIf="formulario.controls['emailControl'].hasError('required')">
+        Campo requerido
+      </div>
+    </div>
+  </form>
+  <div style="margin: 5px;">
+    <button class="btn btn-primary" (click)="enviar()"
+      [disabled]="formulario.controls['emailControl'].invalid">Enviar</button>
+  </div>
+</div>

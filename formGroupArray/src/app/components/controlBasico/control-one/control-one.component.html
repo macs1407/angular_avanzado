@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Formularios reactivos, Controles uno</h2>
+  <!-- Asociamos el formControl a la variable actividad del ts -->
+  <input type="text" [formControl]="actividad" class="form-control"><br>
+  <p>
+    <button (click)="agregar()" class="btn btn-primary" [disabled]="actividad.value == ''">Agregar</button>&nbsp;&nbsp;
+    <button (click)="eliminarTodo()" class="btn btn-danger" [disabled]="actividades.length<=0">Eliminar todo</button>
+  </p>
+  <ol>
+    <li *ngFor="let con of actividades; let i = index">
+      {{con}}&nbsp;<button (click)="(borrar(i))" class="btn btn-danger">X</button>
+    </li>
+  </ol>
+</div>

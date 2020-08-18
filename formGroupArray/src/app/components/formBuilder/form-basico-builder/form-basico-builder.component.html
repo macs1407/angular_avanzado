@@ -1,0 +1,53 @@
+<div class="container">
+  <h2>Formularios reactivos / form builder</h2>
+  <form [formGroup]="formBasico">
+    <div class="form-group">
+      <label for="nombre">nombre</label>
+      <input type="text" formControlName="nombre" class="form-control">
+      <div style="color:red;" *ngIf="formBasico.get('nombre').invalid && (formBasico.get('nombre').dirty || formBasico.get('nombre').touched)">
+        <span *ngIf="formBasico.get('nombre').hasError('required')">
+          el nombre no puede estar vacio
+        </span>
+        <span *ngIf="formBasico.get('nombre').errors?.minlength">
+          Debe tener como mínimo 10 caracteres
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="mail">email</label>
+      <input type="text" formControlName="mail" class="form-control">
+      <div style="color:red;" *ngIf="formBasico.get('mail').invalid && (formBasico.get('mail').dirty || formBasico.get('mail').touched)">
+        <span *ngIf="formBasico.get('mail').hasError('required')">
+          El nombre no puede estar vacio
+        </span>
+        <span *ngIf="formBasico.get('mail').errors?.email">
+          El email no es valido
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="mail">mensaje</label>
+      <textarea type="text" formControlName="mensaje" class="form-control"></textarea>
+      <div style="color:red;" *ngIf="formBasico.get('mensaje').invalid && (formBasico.get('mensaje').dirty || formBasico.get('mensaje').touched)">
+        <span *ngIf="formBasico.get('mensaje').hasError('required')">
+          El nombre no puede estar vacio
+        </span>
+        <span *ngIf="formBasico.get('mensaje').errors?.maxlength">
+          El campo no puede exceder los 100 caracteres
+        </span>
+      </div>
+    </div>
+    <button class="btn btn-primary"
+      [disabled]="(formBasico.value.nombre == '' || 
+                  (formBasico.get('mail').value == '' || formBasico.get('mail').value == undefined) 
+                  || formBasico.controls['mensaje'].value == '')
+                  || formBasico.invalid"
+                  (click)="enviar()">
+      Enviar
+    </button>
+    <button class="btn btn-danger" (click)="limpiar()">Limpiar</button>
+    <div class="alert alert-success" style="margin-top: 10px;" *ngIf="resultado != ''">
+      {{resultado}}
+    </div>
+  </form>
+</div>

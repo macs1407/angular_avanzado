@@ -1,0 +1,49 @@
+<div class="container">
+  <h2>Formularios reactivos - controles checkbox, radio y select</h2>
+  <form [formGroup]="formularioConversion">
+    <div class="form-group">
+      <label>Ingrese numero decimal</label>
+      <input type="text" formControlName="numeroDecimal" class="form-control">
+    </div>
+    <!-- El atributo base se asocia a controles radio de la vista, se selecciona uno
+    por defecto es aquel que almacena en value el valor octal -->
+    <div class="form-group">
+      <label>Convertir a </label>
+      <input type="radio" formControlName="base" value="octal">octal
+      <input type="radio" formControlName="base" value="hexadecimal">hexadecimal
+    </div>
+    <!-- en el control html select se asocia el atributo potencia, indicando que se muestre
+    por defecto la opcion 2, ya que este es valor por defecto que tiene en el TS -->
+    <div class="form-group">
+      <label>Elevar a </label>
+      <select formControlName="potencia" class="custom-select">
+        <option>2</option>
+        <option>4</option>
+        <option>6</option>
+      </select>
+    </div>
+    <!-- Por defecto la propiedad largo esta en false en el TS por lo que no aparece
+    seleccionado por defecto -->
+    <div class="form-group">
+      <label></label>
+      <input type="checkbox" formControlName="largo" />Mostrar cantidad de digitos
+    </div>
+    <div>
+      <button class="btn btn-primary" (click)="enviar()"
+        [disabled]="numeroDecimal == null || numeroDecimal == ''">
+        Enviar
+      </button>
+      <button class="btn btn-danger" (click)="limpiar()">Limpiar</button>
+    </div>
+    <!-- Se hace control para que se muestre el div, se pueden acceder al valor de 
+    cada objeto de manera diferente como se muestra-->
+    <div *ngIf="formularioConversion.controls['numeroDecimal'].value != '' && 
+                formularioConversion.get('base').value != ''
+                && formularioConversion.controls.potencia.value != ''
+                " class="alert alert-success" style="margin-top: 10px;">
+      <p>Conversion: {{conversion}}</p>
+      <p>Potencia: {{potenciaNumero}}</p>
+      <p>Cantidad de dígitos: {{cantidad}}</p> 
+    </div>
+  </form>
+</div>

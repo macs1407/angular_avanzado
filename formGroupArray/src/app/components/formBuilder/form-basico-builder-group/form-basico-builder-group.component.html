@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Formularios reactivos / form builder group</h2>
+  <form [formGroup]="formBuilderGroup">
+    <div class="form-group">
+      <label for="nombre">nombres</label>
+      <input type="text" formControlName="nombre" class="form-control">
+      <div style="color:red;" *ngIf="formBuilderGroup.controls['nombre'].invalid && (formBuilderGroup.get('nombre').dirty || formBuilderGroup.get('nombre').touched)">
+        <span *ngIf="formBuilderGroup.controls['nombre'].hasError('required')">
+          el nombre no puede estar vacio
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="apellidos">apellidos</label>
+      <input type="text" formControlName="apellidos" class="form-control">
+    </div>
+    <div formGroupName="otrosDatos">
+      <div class="form-group">
+        <label for="pais">pais</label>
+        <input type="text" formControlName="pais" class="form-control">
+        <div style="color:red;" *ngIf="formBuilderGroup.get('otrosDatos.pais').invalid && (formBuilderGroup.get('otrosDatos.pais').dirty || formBuilderGroup.get('otrosDatos.pais').touched)">
+          <span *ngIf="formBuilderGroup.controls.otrosDatos.controls.pais.hasError('required')">
+            el nombre no puede estar vacio
+          </span>
+          <span *ngIf="formBuilderGroup.controls.otrosDatos.controls.pais.hasError('maxlength')">
+            No puede tener un mayor a 7 caracteres
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ciudad">ciudad</label>
+        <input type="text" formControlName="ciudad" class="form-control">
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="enviar()" [disabled]="formBuilderGroup.invalid">Enviar</button>
+    <button class="btn btn-danger" (click)="limpiar()">Limpiar</button>
+    <div class="alert alert-success" style="margin-top: 10px;" *ngIf="resultado != null && resultado != ''">
+      {{resultado}}
+    </div>
+  </form>
+</div>

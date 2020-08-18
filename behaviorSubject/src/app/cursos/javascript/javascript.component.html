@@ -1,0 +1,19 @@
+<div class="container" style="margin: 5px;">
+  <div class="card">
+    <div class="card-header">Componente JacaScript</div>
+    <div class="card-boby">
+      <form #f="ngForm">
+        <div class="form-group">
+          <label>Nombre del medico</label>
+          <input type="text" [(ngModel)]="persona.nombre" name="nombre" class="form-control" placeholder="Nombre del medico" [disabled]="enviado" required>
+        </div>
+        <div class="form-group">
+          <label>Edad del medico</label>
+          <input type="text" [(ngModel)]="persona.edad" name="edad" class="form-control" placeholder="Edad del medico" [disabled]="enviado" required>
+        </div>
+        <button class="btn btn-primary" (click)="cambiarPersona()" [disabled]="enviado">Enviar</button>
+        <button class="btn btn-primary" (click)="cancelar()" [disabled]="!enviado">Cancelar</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="container">
+  <h2>Formularios reactivos / group / arrays</h2>
+  <form [formGroup]="formGroupArray">
+    <div class="form-group">
+      <label for="nombre">nombre</label>
+      <input type="text" formControlName="nombre" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="nombre">edad</label>
+      <input type="text" formControlName="edad" class="form-control">
+    </div>
+    <button class="btn btn-success" style="margin-bottom: 5px;" (click)="enviar()">Enviar</button>
+    <!-- AGRUPAR TELEFONOS -->
+    <div class="card">
+      <div class="card-title"><h4>TELFONOS</h4></div>
+      <button class="btn btn-primary"  (click)="agregarTelefonos()">Agregar</button>
+      <div class="card-body" formArrayName="telefonos">       
+        <div *ngFor="let telefono of telefonosForm.controls; let i = index" [formGroupName]="i">
+          <h3>Telefonos {{i+1}}</h3>
+          <div class="row">
+            <div class="col">
+              <label for="staticEmail2" class="sr-only">Fijo</label>
+              <input type="text" class="form-control" formControlName="fijo">
+            </div>
+            <div class="col">
+              <label for="staticEmail2" class="sr-only">Celular</label>
+              <input type="text" class="form-control" formControlName="celular">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- AGRUPAR HOOBIES -->
+    <div class="card">
+      <div class="card-title"><h4>HOOBIES</h4></div>
+      <button class="btn btn-primary"  (click)="agregarHoobies()">Agregar</button>
+      <div class="card-body" formArrayName="hoobies">
+        <div *ngFor="let hoobie of hoobiesForm.controls; let i = index" [formGroupName]="i">
+          <h4>Hoobie {{i+1}}</h4>
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" formControlName="tipoHoobie">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" formControlName="nombreHoobie">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" formControlName="descripcion">
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="alert alert-success" style="margin-top: 10px;">
+        <h4 style="text-align: center;">RESULTADOS</h4>
+        <hr>
+        <br>
+        <span>{{nombre}}</span><br>     
+        <hr>
+        <br>
+        <span>{{telefonos}}</span><br>
+        <hr>
+        <br>
+        <span>{{hoobies}}</span>
+      </div>
+  </form>
+</div>
