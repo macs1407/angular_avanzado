@@ -1,0 +1,81 @@
+<div class="container">
+  <h2>Formularios reactivos / group / arrays / tabla dos</h2>
+
+  <form [formGroup]="formularioPrincipal">
+    <!--CATEGORIAS-->
+    <div class="form-group">
+      <label for="categorias">Tipo Consulta</label>
+      <select formControlName="idCategoria" class="custom-select" (change)="onChange($event)">
+        <option *ngFor="let cur of categorias" [value]="cur.idCategoria">{{cur.valor}}</option>
+      </select>
+    </div>
+    <!--CAMPOS A MOSTRAR-->
+    <div class="form-group">
+      <label for="nombre">Datos consulta</label>
+      <input type="text" formControlName="camposMostrar" class="form-control" disabled>
+    </div>
+    <!--NUMERO DE FILAS-->
+    <div class="form-group">
+      <label for="nombre">Numero filas</label>
+      <input type="number" formControlName="numeroFilas" class="form-control" (blur)="construyeTabla()">
+    </div>
+    <!--RESETEAR-->
+    <button class="btn btn-warning" style="margin-bottom: 5px;" (click)="crearFormulario()">Resetear</button>
+    <button class="btn btn-success" style="margin-bottom: 5px;" (click)="enviar()">Enviar</button>
+    <!--TABLA-->
+    <table class="table" *ngIf="valoresArreglo.length > 0">
+      <thead class="thead-dark">
+        <tr>
+          <th *ngFor="let col of columnas">
+              {{col.titulo}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>   
+        <tr *ngFor="let row of contador">
+          <td *ngFor="let col of columnas; index as i">
+            <!-- CAMPO DE TIPO TEXTO  -->
+            <div class="form-group" *ngIf="col.tipo == 'text'">
+              <input  class="form-control"
+                    autocomplete="off"                    
+                    [required]="col.obligatorio"
+                    [formControl]="valoresArreglo.controls[row + i]"
+              />
+              <!-- validaciones para el campo -->
+              <div *ngIf="valoresArreglo.controls[row + i].invalid && (valoresArreglo.controls[row + i].dirty || valoresArreglo.controls[row + i].touched)">
+                <label class="text-danger" *ngIf="valoresArreglo.controls[row + i].hasError('required')">
+                  Campo requerido
+                </label>
+              </div>
+            </div>
+            <!-- CAMPO DE TIPO NUMERO  -->
+            <div class="form-group" *ngIf="col.tipo == 'number'">
+              <input  class="form-control"
+                    autocomplete="off"       
+                    type="number"             
+                    [required]="col.obligatorio"
+                    [formControl]="valoresArreglo.controls[row + i]"
+              />
+              <!-- validaciones para el campo -->
+              <div *ngIf="valoresArreglo.controls[row + i].invalid && (valoresArreglo.controls[row + i].dirty || valoresArreglo.controls[row + i].touched)">
+                <label class="text-danger" *ngIf="valoresArreglo.controls[row + i].hasError('required')">
+                  Campo requerido
+                </label>
+              </div>
+            </div>
+
+            <div class="custom-file" *ngIf="col.tipo == 'img'">
+              <input  type="file" 
+                      class="custom-file-input" 
+                      id="customFileLang" 
+                      lang="es" 
+                      (change)="capturaAdjunto($event.target.files, row+i)"
+                      [formControl]="valoresArreglo.controls[row + i]">
+              <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>

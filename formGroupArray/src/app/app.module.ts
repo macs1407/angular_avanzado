@@ -19,6 +19,8 @@ import { FormGroupAnidadosUnoComponent } from './components/form-group-anidados/
 import { FormBasicoBuilderComponent } from './components/formBuilder/form-basico-builder/form-basico-builder.component';
 import { FormBasicoBuilderGroupComponent } from './components/formBuilder/form-basico-builder-group/form-basico-builder-group.component';
 import { GroupArrayComponent } from './components/formBuilder/group-array/group-array.component';
+import { FormularioTablaComponent } from './components/formBuilder/formulario-tabla/formulario-tabla.component';
+import { FormTablaDosComponent } from './components/formBuilder/form-tabla-dos/form-tabla-dos.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { GroupArrayComponent } from './components/formBuilder/group-array/group-
     FormGroupAnidadosUnoComponent,
     FormBasicoBuilderComponent,
     FormBasicoBuilderGroupComponent,
-    GroupArrayComponent
+    GroupArrayComponent,
+    FormularioTablaComponent,
+    FormTablaDosComponent
   ],
   imports: [
     BrowserModule,

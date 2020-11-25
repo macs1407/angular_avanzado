@@ -81,7 +81,7 @@ export class GroupArrayComponent implements OnInit {
     this.remplazarDescripcionHoobie();
     this.nombre = 'Nombre = '+this.formGroupArray.value.nombre;
     (this.formGroupArray.get('hoobies') as FormArray).controls.forEach((element:any)=>{
-      console.log('element',element.get('tipoHoobie').value);
+      console.log('element',element.value);
       if(element.get('tipoHoobie').value === null || element.get('tipoHoobie').value === ''){
         element.get('tipoHoobie').clearValidators();
         element.get('tipoHoobie').setValidators([Validators.required]);        
